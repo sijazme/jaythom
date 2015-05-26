@@ -1,0 +1,108 @@
+﻿@model MVC5.Models.Staff
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Staff</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.EmployeeID)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+       
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Dob,  new { id = "dateofbirth" ,
+               
+                data_date_format = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower(),
+                @class = "datepicker", placeholder = "Enter date of birth here..." })
+                @Html.ValidationMessageFor(model => model.Dob)
+            </div>
+        </div>
+
+             
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">                   
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+<link rel="stylesheet" href="~/Content/bootstrap-datepicker.css">
+<link rel="stylesheet" href="~/Content/bootstrap.css">
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/bootstrap-datepicker-globalize.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+
+    $("#dateofbirth").datepicker({
+        language: "en-AU",
+        format: "dd/mm/yyyy",
+        autoclose: true
+    });
+
+    $.validator.addMethod("date",
+           function (value, element) {
+               return this.optional(element) || parseDate(value, "dd-MM-yyyy") !== null;
+           });
+
+</script>
+}
